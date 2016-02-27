@@ -1,15 +1,25 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+* {
   background-color: #403D39;
-  color: #FFFCF2;
+  font-family: 'Passion One', cursive;
   text-align: center;
+  color: white;
 }
 
-a {
-  color: #00B7FF;
+html {
+  overflow: hidden;
+  height: 100%;
 }
 
-p {
+body {
+  overflow-x: hidden;
+  overflow: auto;
+  height: 100%;
+}
+
+h1 {
+  color: #FFFCF2;
+}
+
+h2 {
   color: #EB5E28;
 }
