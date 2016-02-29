@@ -3,6 +3,7 @@
   font-family: 'Passion One', cursive;
   text-align: center;
   color: white;
+  margin: 0 auto;
 }
 
 html {
@@ -14,6 +15,7 @@ body {
   overflow-x: hidden;
   overflow: auto;
   height: 100%;
+  background-color: #06AED5;
 }
 
 h1 {
