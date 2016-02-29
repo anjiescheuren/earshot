@@ -1,57 +1,33 @@
-var x = document.getElementById("demo");
-function getLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition, showError);
-    } else {
-        x.innerHTML = "Geolocation is not supported by this browser.";
-    }
-}
+$(function() {
 
-function successHandler(location) {
-    var message = document.getElementById("message"), html = [];
-    html.push("<img width='256' height='256' src='http://maps.google.com/maps/api/staticmap?center=", location.coords.latitude, ",", location.coords.longitude, "&markers=size:small|color:blue|", location.coords.latitude, ",", location.coords.longitude, "&zoom=14&size=256x256&sensor=false' />");
-    html.push("<p>Longitude: ", location.coords.longitude, "</p>");
-    html.push("<p>Latitude: ", location.coords.latitude, "</p>");
-    html.push("<p>Accuracy: ", location.coords.accuracy, " meters</p>");
-    message.innerHTML = html.join("");
-}
-function errorHandler(error) {
-    alert('Attempt to get location failed: ' + error.message);
-}
-navigator.geolocation.getCurrentPosition(successHandler, errorHandler);
+  var apiRoot = 'https://api.songkick.com/api/3.0/events.json?location=geo:30.2669444,-97.7427778&per_page=100&min_date=2016-03-15&max_date=2016-03-20&apikey=PTAZie3wbuF6n5dx&jsoncallback=?';
+  var eventIndex = 0;
+  var liked = [];
 
-function showPosition(position) {
-    lat = position.coords.latitude;
-    lon = position.coords.longitude;
-    latlon = new google.maps.LatLng(lat, lon)
-    mapholder = document.getElementById('mapholder')
-    mapholder.style.height = '300px';
-    mapholder.style.width = '300px';
+  $.ajax({
+      url: apiRoot,
+      method: "GET",
+      data: {},
+      dataType: "jsonp",
+      jsonCallback: "info"
+    })
+  .done(function(data) {
+      var shows = data.resultsPage.results.event;
+      // console.log(shows[0].performance[0].artist.displayName);
+      console.log(shows[0].venue.lat);
+      console.log(shows[0].venue.lng);
 
-    var myOptions = {
-    center:latlon,zoom:17,
-    mapTypeId:google.maps.MapTypeId.ROADMAP,
-    mapTypeControl:false,
-    navigationControlOptions:{style:google.maps.NavigationControlStyle.SMALL}
-    }
+      function formatShowObj(event, i) {
+        return {
+          artist: shows[i].performance[0].artist.displayName,
+          venue: shows[i].venue.displayName,
+          latitude: shows[i].venue.lat,
+          longitude: shows[i].venue.lng,
+          date: shows[i].start.date,
+          time: shows[i].start.time,
+          songkick: shows[i].performance[0].artist.uri
+        }
+      }
+    })
 
-    var map = new google.maps.Map(document.getElementById("mapholder"), myOptions);
-    var marker = new google.maps.Marker({position:latlon,map:map,title:"You are here!"});
-}
-
-function showError(error) {
-    switch(error.code) {
-        case error.PERMISSION_DENIED:
-            x.innerHTML = "User denied the request for Geolocation."
-            break;
-        case error.POSITION_UNAVAILABLE:
-            x.innerHTML = "Location information is unavailable."
-            break;
-        case error.TIMEOUT:
-            x.innerHTML = "The request to get user location timed out."
-            break;
-        case error.UNKNOWN_ERROR:
-            x.innerHTML = "An unknown error occurred."
-            break;
-    }
-}
+})
