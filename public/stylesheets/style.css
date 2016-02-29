@@ -1,5 +1,4 @@
 * {
-  background-color: #06AED5;
   font-family: 'Passion One', cursive;
   text-align: center;
   color: white;
@@ -24,4 +23,13 @@ h1 {
 
 h2 {
   color: #F0C808;
+}
+
+button {
+  background-color: #DD1C1A;
+  font-size: 20px;
+}
+
+#mapholder {
+  margin-top: 2%;
 }
