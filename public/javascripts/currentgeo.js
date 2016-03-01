@@ -29,7 +29,7 @@ function showPosition(position) {
     mapholder.style.width = '325px';
 
     var myOptions = {
-    center:latlon,zoom:17,
+    center:latlon,zoom:14,
     mapTypeId:google.maps.MapTypeId.ROADMAP,
     mapTypeControl:false,
     navigationControlOptions:{style:google.maps.NavigationControlStyle.SMALL}
@@ -38,6 +38,16 @@ function showPosition(position) {
     var map = new google.maps.Map(document.getElementById("mapholder"), myOptions);
     var marker = new google.maps.Marker({position:latlon,map:map,title:"You are here!"});
 
+    var myCity = new google.maps.Circle({
+    center:latlon,
+    radius:804.672,
+    strokeColor:"#DD1C1A",
+    strokeOpacity:0.4,
+    strokeWeight:2,
+    fillColor:"#DD1C1A",
+    fillOpacity:0.1
+    });
+    myCity.setMap(map);
     }
 
 function showError(error) {
