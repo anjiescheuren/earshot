@@ -22,10 +22,16 @@ body {
 
 h1 {
   color: #FFF1D0;
-  font-size: 8.5em;
   max-width: 100%;
   margin-bottom: 0;
-  max-height: 110px;
+  max-height: 130px;
+  font-size: 6em;
+}
+
+@media (min-width: 375px) and (orientation: landscape) {
+  h1 {
+    font-size: 10em;
+  }
 }
 
 h2 {
