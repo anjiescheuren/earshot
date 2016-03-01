@@ -50,8 +50,17 @@ button {
   margin-top: 2%;
 }
 
+.clock {
+  font-size: 25px;
+  margin-top: .5em;
+}
+
+#clock {
+  font-size: 25px;
+}
+
 #mapholder {
-  margin: 2% auto;
+  margin: 4% auto;
   max-height: auto;
   max-width: 100%;
 }

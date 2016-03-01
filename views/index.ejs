@@ -2,6 +2,7 @@
 <html>
   <head>
     <title><%= title %></title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
@@ -28,6 +29,13 @@
         <button onclick="getLocation()">find shows near me</button>
       </div>
     </div>
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="clock">It is now</div>
+        <div id="clock"></div>
+      </div>
+    </div>
+
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div id="mapholder"></div>

@@ -66,3 +66,28 @@ function showError(error) {
             break;
     }
 }
+
+var datenow = moment().format("dddd, MMMM Do");
+var timenow = moment().format("h:mm a")
+console.log(datenow);
+console.log(timenow);
+
+// function to filter shows happening on datenow, after timenow
+
+// function to filter shows within a half mile of current user's location
+
+// function to display those shows on the map
+
+// function to add infowindow with show information
+
+// var map = new google.maps.Map(document.getElementById("mapholder"), myOptions);
+// var marker = new google.maps.Marker({position:latlon,map:map,icon:'images/headphone.png',title:"You are here!"});
+
+// var infowindow = new google.maps.InfoWindow({
+//         content:"show.date, show.artist, show.venue, show.time"
+//         });
+
+//       google.maps.event.addListener(marker, 'click', function() {
+//         infowindow.open(map,marker);
+//         });
+
