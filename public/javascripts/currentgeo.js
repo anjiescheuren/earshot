@@ -9,7 +9,7 @@ function getLocation() {
 
 function successHandler(location) {
     var message = document.getElementById("message"), html = [];
-    html.push("<img width='256' height='256' src='http://maps.google.com/maps/api/staticmap?center=", location.coords.latitude, ",", location.coords.longitude, "&markers=size:small|color:blue|", location.coords.latitude, ",", location.coords.longitude, "&zoom=14&size=256x256&sensor=false' />");
+    html.push("<img width='256' height='256' src='http://maps.googleapis.com/maps/api/js", location.coords.latitude, ",", location.coords.longitude, "&markers=size:small|color:blue|", location.coords.latitude, ",", location.coords.longitude, "&zoom=14&size=256x256&sensor=false' />");
     html.push("<p>Longitude: ", location.coords.longitude, "</p>");
     html.push("<p>Latitude: ", location.coords.latitude, "</p>");
     html.push("<p>Accuracy: ", location.coords.accuracy, " meters</p>");
@@ -25,8 +25,8 @@ function showPosition(position) {
     lon = position.coords.longitude;
     latlon = new google.maps.LatLng(lat, lon)
     mapholder = document.getElementById('mapholder')
-    mapholder.style.height = '350px';
-    mapholder.style.width = '350px';
+    mapholder.style.height = '325px';
+    mapholder.style.width = '325px';
 
     var myOptions = {
     center:latlon,zoom:17,
@@ -37,7 +37,8 @@ function showPosition(position) {
 
     var map = new google.maps.Map(document.getElementById("mapholder"), myOptions);
     var marker = new google.maps.Marker({position:latlon,map:map,title:"You are here!"});
-}
+
+    }
 
 function showError(error) {
     switch(error.code) {

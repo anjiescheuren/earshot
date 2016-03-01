@@ -13,9 +13,10 @@ $(function() {
     })
   .done(function(data) {
       var shows = data.resultsPage.results.event;
-      // console.log(shows[0].performance[0].artist.displayName);
-      console.log(shows[0].venue.lat);
-      console.log(shows[0].venue.lng);
+      console.log(shows[23].performance[0].artist.displayName);
+      console.log(shows[23].venue.displayName);
+      console.log(shows[23].venue.lat);
+      console.log(shows[23].venue.lng);
 
       function formatShowObj(event, i) {
         return {

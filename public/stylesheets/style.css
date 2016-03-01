@@ -2,12 +2,15 @@
   font-family: 'Passion One', cursive;
   text-align: center;
   color: white;
+  margin: 0 auto;
 }
 
 html {
   overflow: hidden;
   height: 100%;
   background-color: #06AED5;
+  padding: 0;
+  margin: 0 auto;
 }
 
 body {
@@ -21,18 +24,26 @@ body {
 
 h1 {
   color: #FFF1D0;
-  font-size: 8em;
+  font-size: 8.5em;
+  max-width: 100%;
+  margin-bottom: 0;
+  max-height: auto;
 }
 
 h2 {
   color: #F0C808;
+  margin: 0 auto;
+  font-size: 3em;
 }
 
 button {
   background-color: #DD1C1A;
   font-size: 20px;
+  margin-top: 2%;
 }
 
 #mapholder {
   margin: 2% auto;
+  max-height: auto;
+  max-width: 100%;
 }
