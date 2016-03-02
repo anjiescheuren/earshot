@@ -32,7 +32,8 @@ h1 {
 h2 {
   color: #F0C808;
   margin: 0 auto;
-  font-size: 2.5em;
+  font-size: 2.3em;
+  max-width: 100%;
 }
 
 @media (min-width: 375px) and (orientation: landscape) {
@@ -42,6 +43,7 @@ h2 {
   }
   h2 {
     font-size: 3em;
+    max-width: 100%;
   }
 }
 
