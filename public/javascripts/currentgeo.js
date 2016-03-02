@@ -29,11 +29,11 @@ function showPosition(position) {
     mapholder.style.width = '600px';
 
     var myOptions = {
-    center:latlon,zoom:14,
-    mapTypeId:google.maps.MapTypeId.ROADMAP,
-    mapTypeControl:false,
-    fullscreenControl: true,
-    navigationControlOptions:{style:google.maps.NavigationControlStyle.SMALL}
+      center:latlon,zoom:14,
+      mapTypeId:google.maps.MapTypeId.ROADMAP,
+      mapTypeControl:false,
+      fullscreenControl: true,
+      navigationControlOptions:{style:google.maps.NavigationControlStyle.SMALL}
     }
 
     var map = new google.maps.Map(document.getElementById("mapholder"), myOptions);
@@ -47,15 +47,15 @@ function showPosition(position) {
     var marker = new google.maps.Marker({position:latlon,map:map,title:"You are here!"});
 
     var myCity = new google.maps.Circle({
-    center:latlon,
-    radius:1207.008,
-    strokeColor:"#DD1C1A",
-    strokeOpacity:0.4,
-    strokeWeight:2,
-    fillColor:"#DD1C1A",
-    fillOpacity:0.1
+      center:latlon,
+      radius:1207.008,
+      strokeColor:"#DD1C1A",
+      strokeOpacity:0.4,
+      strokeWeight:2,
+      fillColor:"#DD1C1A",
+      fillOpacity:0.1
     });
-    myCity.setMap(map);
+      myCity.setMap(map);
     }
 
 function showError(error) {
@@ -75,37 +75,21 @@ function showError(error) {
     }
 }
 
-// Create a div to hold the control.
-var controlDiv = document.createElement('div');
+// function to filter out shows with null values
 
-// Set CSS for the control border
-var controlUI = document.createElement('ui');
-controlUI.style.backgroundColor = '#fff';
-controlUI.style.border = '2px solid #fff';
-controlUI.style.cursor = 'pointer';
-controlUI.style.marginBottom = '22px';
-controlUI.style.textAlign = 'center';
-controlUI.title = 'Click to recenter the map';
-controlDiv.appendChild(controlUI);
-
-// Set CSS for the control interior
-var controlText = document.createElement('text');
-controlText.style.color = 'rgb(25,25,25)';
-controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
-controlText.style.fontSize = '16px';
-controlText.style.lineHeight = '38px';
-controlText.style.paddingLeft = '5px';
-controlText.style.paddingRight = '5px';
-controlText.innerHTML = 'Center Map';
-controlUI.appendChild(controlText);
-
-var datenow = moment().format("dddd, MMMM Do");
-var timenow = moment().format("h:mm a")
-
+// if
+// venue === unknown venue or
+// date === null or
+// time === invalid date or
+// lat === null or
+// lng === null
+// do not display show
+// else
+// display show
 
 // function to filter shows happening on datenow, after timenow
 
-// function to filter shows within a half mile of current user's location
+// function to filter shows within .75 mile of current user's location
 
 // function to display those shows on the map
 
