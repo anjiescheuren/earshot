@@ -25,7 +25,7 @@ function showPosition(position) {
     lon = position.coords.longitude;
     latlon = new google.maps.LatLng(lat, lon)
     mapholder = document.getElementById('mapholder')
-    mapholder.style.height = '425px';
+    mapholder.style.height = '350px';
     mapholder.style.width = '600px';
 
     var myOptions = {
@@ -37,11 +37,13 @@ function showPosition(position) {
     }
 
     var map = new google.maps.Map(document.getElementById("mapholder"), myOptions);
+
     // listen for the window resize event & trigger Google Maps to update too
     $(window).resize(function() {
     // (the 'map' here is the result of the created 'var map = ...' above)
      google.maps.event.trigger(map, "resize");
     });
+
     var marker = new google.maps.Marker({position:latlon,map:map,title:"You are here!"});
 
     var myCity = new google.maps.Circle({
