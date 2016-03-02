@@ -25,7 +25,7 @@ function showPosition(position) {
     lon = position.coords.longitude;
     latlon = new google.maps.LatLng(lat, lon)
     mapholder = document.getElementById('mapholder')
-    mapholder.style.height = '500px';
+    mapholder.style.height = '425px';
     mapholder.style.width = '600px';
 
     var myOptions = {
