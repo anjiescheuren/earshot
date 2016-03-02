@@ -31,6 +31,7 @@ h1 {
 
 h2 {
   font-family: 'Droid Sans', sans-serif;
+  font-weight: 700;
   color: #F0C808;
   margin: 0 auto;
   font-size: 1.6em;
@@ -82,4 +83,5 @@ button {
 #mapholder {
   max-height: auto;
   max-width: 100%;
+  max-height: 100%;
 }

@@ -9,7 +9,7 @@ function getLocation() {
 
 function successHandler(location) {
     var message = document.getElementById("message"), html = [];
-    html.push("<img width='256' height='256' src='http://maps.googleapis.com/maps/api/js", location.coords.latitude, ",", location.coords.longitude, "&markers=size:small|color:blue|", location.coords.latitude, ",", location.coords.longitude, "&zoom=14&size=256x256&sensor=false' />");
+    html.push("<img width='400' height='400' src='http://maps.googleapis.com/maps/api/js", location.coords.latitude, ",", location.coords.longitude, "&markers=size:small|color:blue|", location.coords.latitude, ",", location.coords.longitude, "&zoom=15&size=400x400&sensor=false' />");
     html.push("<p>Longitude: ", location.coords.longitude, "</p>");
     html.push("<p>Latitude: ", location.coords.latitude, "</p>");
     html.push("<p>Accuracy: ", location.coords.accuracy, " meters</p>");
@@ -25,11 +25,11 @@ function showPosition(position) {
     lon = position.coords.longitude;
     latlon = new google.maps.LatLng(lat, lon)
     mapholder = document.getElementById('mapholder')
-    mapholder.style.height = '325px';
-    mapholder.style.width = '325px';
+    mapholder.style.height = '500px';
+    mapholder.style.width = '600px';
 
     var myOptions = {
-    center:latlon,zoom:14,
+    center:latlon,zoom:15,
     mapTypeId:google.maps.MapTypeId.ROADMAP,
     mapTypeControl:false,
     navigationControlOptions:{style:google.maps.NavigationControlStyle.SMALL}
