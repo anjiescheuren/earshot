@@ -84,4 +84,8 @@ button {
   max-height: auto;
   max-width: 100%;
   max-height: 100%;
+  min-width: 200px;
+  width: 50%;
+  min-height: 200px;
+  height: 80%;
 }

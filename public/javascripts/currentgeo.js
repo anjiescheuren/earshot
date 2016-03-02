@@ -9,7 +9,7 @@ function getLocation() {
 
 function successHandler(location) {
     var message = document.getElementById("message"), html = [];
-    html.push("<img width='400' height='400' src='http://maps.googleapis.com/maps/api/js", location.coords.latitude, ",", location.coords.longitude, "&markers=size:small|color:blue|", location.coords.latitude, ",", location.coords.longitude, "&zoom=15&size=400x400&sensor=false' />");
+    html.push("<img width='256' height='256' src='http://maps.googleapis.com/maps/api/js", location.coords.latitude, ",", location.coords.longitude, "&markers=size:small|color:blue|", location.coords.latitude, ",", location.coords.longitude, "&zoom=14&size=256x256&sensor=false' />");
     html.push("<p>Longitude: ", location.coords.longitude, "</p>");
     html.push("<p>Latitude: ", location.coords.latitude, "</p>");
     html.push("<p>Accuracy: ", location.coords.accuracy, " meters</p>");
@@ -29,18 +29,24 @@ function showPosition(position) {
     mapholder.style.width = '600px';
 
     var myOptions = {
-    center:latlon,zoom:15,
+    center:latlon,zoom:14,
     mapTypeId:google.maps.MapTypeId.ROADMAP,
     mapTypeControl:false,
+    fullscreenControl: true,
     navigationControlOptions:{style:google.maps.NavigationControlStyle.SMALL}
     }
 
     var map = new google.maps.Map(document.getElementById("mapholder"), myOptions);
+    // listen for the window resize event & trigger Google Maps to update too
+    $(window).resize(function() {
+    // (the 'map' here is the result of the created 'var map = ...' above)
+     google.maps.event.trigger(map, "resize");
+    });
     var marker = new google.maps.Marker({position:latlon,map:map,title:"You are here!"});
 
     var myCity = new google.maps.Circle({
     center:latlon,
-    radius:804.672,
+    radius:1207.008,
     strokeColor:"#DD1C1A",
     strokeOpacity:0.4,
     strokeWeight:2,
@@ -66,6 +72,30 @@ function showError(error) {
             break;
     }
 }
+
+// Create a div to hold the control.
+var controlDiv = document.createElement('div');
+
+// Set CSS for the control border
+var controlUI = document.createElement('ui');
+controlUI.style.backgroundColor = '#fff';
+controlUI.style.border = '2px solid #fff';
+controlUI.style.cursor = 'pointer';
+controlUI.style.marginBottom = '22px';
+controlUI.style.textAlign = 'center';
+controlUI.title = 'Click to recenter the map';
+controlDiv.appendChild(controlUI);
+
+// Set CSS for the control interior
+var controlText = document.createElement('text');
+controlText.style.color = 'rgb(25,25,25)';
+controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+controlText.style.fontSize = '16px';
+controlText.style.lineHeight = '38px';
+controlText.style.paddingLeft = '5px';
+controlText.style.paddingRight = '5px';
+controlText.innerHTML = 'Center Map';
+controlUI.appendChild(controlText);
 
 var datenow = moment().format("dddd, MMMM Do");
 var timenow = moment().format("h:mm a")
