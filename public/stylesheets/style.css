@@ -24,48 +24,62 @@ h1 {
   color: #FFF1D0;
   max-width: 100%;
   margin: 0 auto;
-  max-height: 95px;
-  font-size: 7em;
+  max-height: 100px;
+  font-size: 7.7em;
   padding: 0;
 }
 
 h2 {
+  font-family: 'Droid Sans', sans-serif;
   color: #F0C808;
   margin: 0 auto;
-  font-size: 1.8em;
+  font-size: 1.6em;
   max-width: 100%;
 }
 
 button {
+  font-family: 'Droid Sans', sans-serif;
+  font-weight: 700;
   background-color: #DD1C1A;
-  font-size: 20px;
-  margin-top: 1.7%;
+  font-size: 1em;
+  margin-top: 4%;
 }
 
 #clock {
-  font-size: 1.5em;
-  margin-top: .35em;
+  font-family: 'Droid Sans', sans-serif;
+  font-weight: 700;
+  font-size: 1.2em;
+  margin: .75em auto;
   padding: 0;
 }
 
 @media (min-width: 375px) and (orientation: landscape) {
   h1 {
-    font-size: 11em;
-    max-height: 145px;
+    font-size: 12em;
+    max-height: 157px;
   }
   h2 {
-    font-size: 2.8em;
+    font-family: 'Droid Sans', sans-serif;
+    font-weight: bold;
+    font-size: 2.35em;
     max-width: 100%;
   }
 
   #clock {
-    font-size: 2em;
+    font-family: 'Droid Sans', sans-serif;
+    font-size: 1.25em;
     max-width: 100%;
+    margin: .5em auto;
+  }
+
+  button {
+  font-family: 'Droid Sans', sans-serif;
+  font-size: 1.25em;
+  margin-top: .75em;
   }
 }
 
 #mapholder {
-  margin: .5em auto;
   max-height: auto;
   max-width: 100%;
 }
