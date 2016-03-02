@@ -69,8 +69,7 @@ function showError(error) {
 
 var datenow = moment().format("dddd, MMMM Do");
 var timenow = moment().format("h:mm a")
-console.log(datenow);
-console.log(timenow);
+
 
 // function to filter shows happening on datenow, after timenow
 

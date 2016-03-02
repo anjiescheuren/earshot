@@ -29,7 +29,7 @@ $(function() {
       var date = moment(show.date, "YYYY-MM-DD").format("dddd, MMMM Do");
 
       function date_time() {
-        now = moment().format('dddd, MMMM Do hh:mm a');
+        now = moment().format('dddd, MMMM Do h:mm a');
         document.getElementById('clock').innerHTML = now;
         setTimeout(function () { date_time(); }, 6000);
       }
