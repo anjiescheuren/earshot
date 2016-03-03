@@ -14,11 +14,13 @@ $(function() {
   /////////////////////////
 
   function getVenues(map) {
-    var apiRoot1 = 'https://api.songkick.com/api/3.0/events.json?location=geo:30.2669444,-97.7427778&page=1&per_page=100&min_date=2016-03-04&max_date=2016-03-04&apikey=PTAZie3wbuF6n5dx&jsoncallback=?';
+    var currentDate = moment().format("YYYY-MM-DD");
+    //moment.js to update api call based on current date
+    var apiRoot = 'https://api.songkick.com/api/3.0/events.json?location=geo:30.2669444,-97.7427778&page=1&per_page=100&min_date=' + currentDate + '&max_date=' + currentDate + '&apikey=PTAZie3wbuF6n5dx&jsoncallback=?';
     var venues = [];
 
     $.ajax({
-      url: apiRoot1,
+      url: apiRoot,
       method: "GET",
       data: {},
       dataType: "jsonp"
@@ -68,14 +70,14 @@ $(function() {
       function infoWindowHandler(marker, content) {
         google.maps.event.addListener(marker, 'click', function(){
           var infowindow = new google.maps.InfoWindow({
-            content: content
+            content: '<div class="infowindow">' + content + '</div>'
           });
           infowindow.close(); // Close previously opened infowindow
           infowindow.open(map, marker);
         });
       }
 
-      infoWindowHandler(marker, venues[i].artist);
+      infoWindowHandler(marker, venues[i].artist + '<br>' + venues[i].name + '<br>' + venues[i].time + '<br>' + venues[i].date);
     }
   }
 
@@ -96,9 +98,9 @@ $(function() {
       alert("Geolocation is not supported by this browser.");
     }
   }
-
+  //function to show map
   function showMap() {
-    var latlon =  new google.maps.LatLng(30.2669444, -97.7427778);
+    var latlon =  new google.maps.LatLng(42.2669444, -97.7427778);
     var myOptions = {
       center:latlon,zoom:14,
       mapTypeId:google.maps.MapTypeId.ROADMAP,
@@ -125,8 +127,6 @@ $(function() {
     lat = position.coords.latitude;
     lon = position.coords.longitude;
     latlon = new google.maps.LatLng(lat, lon);
-    //recenter map
-    map.panTo(latlon);
 
     var marker = new google.maps.Marker({position:latlon,map:map});
 
@@ -140,6 +140,12 @@ $(function() {
       fillOpacity:0.1
     });
     myCity.setMap(map);
+
+    map.panTo(latlon);
+
+    $('#recenter').click(function() {
+      map.panTo(latlon);
+    })
   }
 
   // function to show an error if user denies access to current location

@@ -80,6 +80,16 @@ button {
   }
 }
 
+.infowindow {
+  color: black;
+  font-family: 'Droid Sans', sans-serif;
+  padding: 2px;
+  text-align: center;
+  margin: 0 auto;
+  max-width: 300px;
+
+}
+
 #mapholder {
   max-height: auto;
   max-width: 100%;
