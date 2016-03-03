@@ -142,9 +142,11 @@ $(function() {
     myCity.setMap(map);
 
     map.panTo(latlon);
+    map.setZoom(14);
 
     $('#recenter').click(function() {
       map.panTo(latlon);
+      map.setZoom(14);
     })
   }
 
