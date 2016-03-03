@@ -77,15 +77,19 @@ $(function() {
         });
       }
 
-      infoWindowHandler(marker, venues[i].artist + '<br>' + venues[i].name + '<br>' + venues[i].time + '<br>' + venues[i].date);
+      infoWindowHandler(marker, venues[i].artist + '<br>' + venues[i].name + '<br>' + venues[i].time);
     }
   }
 
   // function to display current date and time
   function dateTime() {
-    now = moment().format('dddd, MMMM Do hh:mm a');
-    document.getElementById('clock').innerHTML = now;
-    setTimeout(function () { dateTime(); }, 6000);
+    daynow = moment().format('dddd, MMMM Do');
+    timenow = moment().format('h:mm a')
+    // document.getElementById('clock').innerHTML = now;
+    $('#clock').html('Displaying shows for ' + daynow + ' after ' + timenow);
+    setTimeout(function () {
+      dateTime();
+    }, 30000);
   }
 
   // function to get user's current location

@@ -49,7 +49,7 @@ button {
 #clock {
   font-family: 'Droid Sans', sans-serif;
   font-weight: 700;
-  font-size: 1.2em;
+  font-size: .75em;
   margin: .75em auto;
   padding: 0;
 }
@@ -68,7 +68,7 @@ button {
 
   #clock {
     font-family: 'Droid Sans', sans-serif;
-    font-size: 1em;
+    font-size: 1.13em;
     max-width: 100%;
     margin: .5em auto;
   }
