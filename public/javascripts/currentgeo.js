@@ -14,8 +14,9 @@ $(function() {
   /////////////////////////
 
   function getVenues(map) {
+
+    //Use moment.js to update api call based on current date
     var currentDate = moment().format("YYYY-MM-DD");
-    //moment.js to update api call based on current date
     var apiRoot = 'https://api.songkick.com/api/3.0/events.json?location=geo:30.2669444,-97.7427778&page=1&per_page=100&min_date=' + currentDate + '&max_date=' + currentDate + '&apikey=PTAZie3wbuF6n5dx&jsoncallback=?';
     var venues = [];
 
@@ -40,9 +41,6 @@ $(function() {
           datenow: moment().format("dddd, MMMM Do"),
           timenow: moment().format("HH:mm:ss")
         }
-
-        // var datenow = moment().format("dddd, MMMM Do"),
-        //     timenow = moment().format("hh:mm a");
 
         // function to filter out shows with null values
         if (venue.name != "Unknown venue" &&
@@ -123,9 +121,9 @@ $(function() {
     mapholder.style.width = '600px';
 
     var map = new google.maps.Map(mapholder, myOptions);
-    // listen for the window resize event & trigger Google Maps to update too
+
+    // listen for the window resize event & trigger Google Maps to update
     $(window).resize(function() {
-      // (the 'map' here is the result of the created 'var map = ...' above)
       google.maps.event.trigger(map, "resize");
     });
     return map;
