@@ -104,7 +104,7 @@ $(function() {
   }
   //function to show map
   function showMap() {
-    var latlon =  new google.maps.LatLng(42.2669444, -97.7427778);
+    var latlon =  new google.maps.LatLng(30.2669444, -97.7427778);
     var myOptions = {
       center:latlon,zoom:15,
       mapTypeId:google.maps.MapTypeId.ROADMAP,
