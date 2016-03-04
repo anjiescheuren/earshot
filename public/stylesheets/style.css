@@ -87,7 +87,11 @@ button {
   text-align: center;
   margin: 0 auto;
   max-width: 300px;
+}
 
+#artist {
+  font-size: 16px;
+  font-weight: bold;
 }
 
 #mapholder {

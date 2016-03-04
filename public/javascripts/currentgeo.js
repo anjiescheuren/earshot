@@ -70,14 +70,14 @@ $(function() {
       function infoWindowHandler(marker, content) {
         google.maps.event.addListener(marker, 'click', function(){
           var infowindow = new google.maps.InfoWindow({
-            content: '<div class="infowindow">' + content + '</div>'
+            content: content
           });
           infowindow.close(); // Close previously opened infowindow
           infowindow.open(map, marker);
         });
       }
 
-      infoWindowHandler(marker, venues[i].artist + '<br>' + venues[i].name + '<br>' + venues[i].time);
+      infoWindowHandler(marker, '<div class="infowindow" id="artist">' + venues[i].artist + '</div>' + '<div class="infowindow">' + venues[i].name + '</div>' + '<div class="infowindow">' +venues[i].time + '</div');
     }
   }
 
@@ -106,7 +106,7 @@ $(function() {
   function showMap() {
     var latlon =  new google.maps.LatLng(42.2669444, -97.7427778);
     var myOptions = {
-      center:latlon,zoom:14,
+      center:latlon,zoom:15,
       mapTypeId:google.maps.MapTypeId.ROADMAP,
       mapTypeControl:false,
       fullscreenControl: true,
@@ -136,7 +136,7 @@ $(function() {
 
     var myCity = new google.maps.Circle({
       center:latlon,
-      radius:1207.008,
+      radius:536.447946355,
       strokeColor:"#DD1C1A",
       strokeOpacity:0.4,
       strokeWeight:2,
@@ -146,11 +146,11 @@ $(function() {
     myCity.setMap(map);
 
     map.panTo(latlon);
-    map.setZoom(14);
+    map.setZoom(15);
 
     $('#recenter').click(function() {
       map.panTo(latlon);
-      map.setZoom(14);
+      map.setZoom(15);
     })
   }
 
