@@ -34,25 +34,29 @@ $(function() {
           name: shows[i].venue.displayName,
           lat: shows[i].venue.lat,
           lng: shows[i].venue.lng,
-          time: moment(shows[i].start.time, "hh:mm a").format("h:mm a"),
-          date: moment(shows[i].start.date, "YYYY-MM-DD").format("dddd, MMMM Do")
+          songkick: shows[i].performance[0].artist.uri,
+          time: shows[i].start.time,
+          date: moment(shows[i].start.date, "YYYY-MM-DD").format("dddd, MMMM Do"),
+          datenow: moment().format("dddd, MMMM Do"),
+          timenow: moment().format("HH:mm:ss")
         }
 
-        var datenow = moment().format("dddd, MMMM Do"),
-            timenow = moment().format("hh:mm a");
+        // var datenow = moment().format("dddd, MMMM Do"),
+        //     timenow = moment().format("hh:mm a");
 
         // function to filter out shows with null values
         if (venue.name != "Unknown venue" &&
             venue.lat != null &&
             venue.time != "Invalid date" &&
-            venue.time > timenow
+            venue.time < venue.timenow
           )
         {
+          console.log(venue.time, venue.timenow);
           venues.push(venue);
         }
       }
       dropMarkers(map, venues);
-      console.log(venues);
+      // console.log(venues);
     });
     // Done with AJAX request
   }
@@ -77,7 +81,7 @@ $(function() {
         });
       }
 
-      infoWindowHandler(marker, '<div class="infowindow" id="artist">' + venues[i].artist + '</div>' + '<div class="infowindow">' + venues[i].name + '</div>' + '<div class="infowindow">' +venues[i].time + '</div');
+      infoWindowHandler(marker, '<a target="blank" id="artist" class="infowindow" href="http://' + venues[i].artist + '.bandcamp.com"><div class="infowindow" id="artist">' + venues[i].artist + '</div></a>' + '<div class="infowindow">' + venues[i].name + '</div>' + '<div class="infowindow">' + moment(venues[i].time, "hh:mm:ss").format("h:mm a") + '</div');
     }
   }
 
