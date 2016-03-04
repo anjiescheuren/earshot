@@ -82,7 +82,7 @@ $(function() {
       }
       var artist = venues[i].artist.replace(/\s/g, '');
       console.log(artist);
-      infoWindowHandler(marker, '<a target="blank" id="artist" class="infowindow" href="' + artist + '.bandcamp.com"><div class="infowindow" id="artist">' + venues[i].artist + '</div></a>' + '<div class="infowindow">' + venues[i].name + '</div>' + '<div class="infowindow">' + moment(venues[i].time, "hh:mm:ss").format("h:mm a") + '</div');
+      infoWindowHandler(marker, '<a target="blank" id="artist" class="infowindow" href="https://' + artist + '.bandcamp.com"><div class="infowindow" id="artist">' + venues[i].artist + '</div></a>' + '<div class="infowindow">' + venues[i].name + '</div>' + '<div class="infowindow">' + moment(venues[i].time, "hh:mm:ss").format("h:mm a") + '</div');
     }
   }
 
