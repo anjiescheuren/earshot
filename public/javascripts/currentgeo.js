@@ -51,7 +51,7 @@ $(function() {
             venue.time < venue.timenow
           )
         {
-          console.log(venue.time, venue.timenow);
+          console.log(venue.artist);
           venues.push(venue);
         }
       }
@@ -80,8 +80,9 @@ $(function() {
           infowindow.open(map, marker);
         });
       }
-
-      infoWindowHandler(marker, '<a target="blank" id="artist" class="infowindow" href="http://' + venues[i].artist + '.bandcamp.com"><div class="infowindow" id="artist">' + venues[i].artist + '</div></a>' + '<div class="infowindow">' + venues[i].name + '</div>' + '<div class="infowindow">' + moment(venues[i].time, "hh:mm:ss").format("h:mm a") + '</div');
+      var artist = venues[i].artist.replace(/\s/g, '');
+      console.log(artist);
+      infoWindowHandler(marker, '<a target="blank" id="artist" class="infowindow" href="' + artist + '.bandcamp.com"><div class="infowindow" id="artist">' + venues[i].artist + '</div></a>' + '<div class="infowindow">' + venues[i].name + '</div>' + '<div class="infowindow">' + moment(venues[i].time, "hh:mm:ss").format("h:mm a") + '</div');
     }
   }
 
