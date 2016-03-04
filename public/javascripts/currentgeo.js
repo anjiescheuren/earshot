@@ -48,7 +48,7 @@ $(function() {
         if (venue.name != "Unknown venue" &&
             venue.lat != null &&
             venue.time != "Invalid date" &&
-            venue.time < venue.timenow
+            venue.time > venue.timenow
           )
         {
           console.log(venue.artist);
