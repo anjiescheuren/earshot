@@ -44,6 +44,7 @@ button {
   background-color: #DD1C1A;
   font-size: 1em;
   margin-top: 4%;
+  outline: none;
 }
 
 #clock {
