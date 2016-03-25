@@ -21,7 +21,7 @@ $(function() {
     var lon = position.coords.longitude;
     console.log(lat, lon);
     // var apiRoot = 'https://api.songkick.com/api/3.0/events.json';
-    var api = 'https://api.songkick.com/api/3.0/events.json?location=geo:' + lat + ',' + lon + '&per_page=100&min_date=' + currentDate + '&max_date=' + currentDate + '&apikey=PTAZie3wbuF6n5dx&jsoncallback=?';
+    var api = 'https://api.songkick.com/api/3.0/events.json?location=geo:' + lat + ','+ lon + '&per_page=100&min_date=' + currentDate + '&max_date=' + currentDate + '&apikey=PTAZie3wbuF6n5dx&jsoncallback=?';
     var venues = [];
 
     $.ajax({
@@ -47,6 +47,7 @@ $(function() {
           name: shows[i].venue.displayName,
           lat: shows[i].venue.lat,
           lng: shows[i].venue.lng,
+          sk: shows[i].venue.metroArea.sk,
           songkick: shows[i].performance[0].artist.uri,
           time: shows[i].start.time,
           date: moment(shows[i].start.date, "YYYY-MM-DD").format("dddd, MMMM Do"),
@@ -57,7 +58,8 @@ $(function() {
         // function to filter out shows with null values
         if (venue.name != "Unknown venue" &&
             venue.lat != null &&
-            venue.time != "Invalid date" &&
+            venue.time != "Invalid date" ||
+            venue.time === "TBA" &&
             venue.time > venue.timenow
           )
         {
@@ -89,8 +91,12 @@ $(function() {
         });
       }
       var artist = venues[i].artist.replace(/\s/g, '');
+      if (venues[i].time === null) {
+        infoWindowHandler(marker, '<a target="blank" id="artist" class="infowindow" href="https://' + artist + '.bandcamp.com"><div class="infowindow" id="artist">' + venues[i].artist + '</div></a>' + '<div class="infowindow">' + venues[i].name + '</div>' + '<div class="infowindow"> TBA </div');
+      } else {
       infoWindowHandler(marker, '<a target="blank" id="artist" class="infowindow" href="https://' + artist + '.bandcamp.com"><div class="infowindow" id="artist">' + venues[i].artist + '</div></a>' + '<div class="infowindow">' + venues[i].name + '</div>' + '<div class="infowindow">' + moment(venues[i].time, "hh:mm:ss").format("h:mm a") + '</div');
     }
+  }
   }
 
   // function to display current date and time
