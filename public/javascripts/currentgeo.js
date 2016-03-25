@@ -7,24 +7,33 @@ $(function() {
   var map = showMap();
   dateTime();
   getLocation(map);
-  getVenues(map);
+  // getVenues(map);
 
   /////////////////////////
   // Function Definition //
   /////////////////////////
 
-  function getVenues(map) {
+  function getVenues(map, position) {
 
     //Use moment.js to update api call based on current date
     var currentDate = moment().format("YYYY-MM-DD");
-    var apiRoot = 'https://api.songkick.com/api/3.0/events.json?location=geo:30.2669444,-97.7427778&page=1&per_page=100&min_date=' + currentDate + '&max_date=' + currentDate + '&apikey=PTAZie3wbuF6n5dx&jsoncallback=?';
+    var lat = position.coords.latitude;
+    var lon = position.coords.longitude;
+    var apiRoot = 'https://api.songkick.com/api/3.0/events.json';
     var venues = [];
 
     $.ajax({
       url: apiRoot,
       method: "GET",
-      data: {},
-      dataType: "jsonp"
+      data: {
+        location: 'geo:' + lat + ',' + lon,
+        page: 1,
+        per_page: 100,
+        min_date: currentDate,
+        max_date: currentDate,
+        apikey: 'PTAZie3wbuF6n5dx'
+      },
+      dataType: "json"
     })
     .done(function(data) {
       var shows = data.resultsPage.results.event;
@@ -53,7 +62,7 @@ $(function() {
         }
       }
       dropMarkers(map, venues);
-    });
+    })
     // Done with AJAX request
   }
 
@@ -72,7 +81,7 @@ $(function() {
           var infowindow = new google.maps.InfoWindow({
             content: content
           });
-          infowindow.close(); // Close previously opened infowindow
+          infowindow.close();
           infowindow.open(map, marker);
         });
       }
@@ -97,6 +106,7 @@ $(function() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
         showPosition(map, position);
+        getVenues(map, position);
       }, showError);
     } else {
       alert("Geolocation is not supported by this browser.");
@@ -114,8 +124,8 @@ $(function() {
     }
 
     var mapholder = document.getElementById('mapholder');
-    mapholder.style.height = '350px';
-    mapholder.style.width = '600px';
+    mapholder.style.height = '345px';
+    mapholder.style.width = '650px';
 
     var map = new google.maps.Map(mapholder, myOptions);
 
