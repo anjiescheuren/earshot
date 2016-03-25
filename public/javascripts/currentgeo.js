@@ -19,7 +19,9 @@ $(function() {
     var currentDate = moment().format("YYYY-MM-DD");
     var lat = position.coords.latitude;
     var lon = position.coords.longitude;
+    console.log(lat, lon);
     var apiRoot = 'https://api.songkick.com/api/3.0/events.json';
+    // var api = 'https://api.songkick.com/api/3.0/events.json?location=geo:' + lat + ',' + lon + '&per_page=100&min_date=' + currentDate + '&max_date=' + currentDate + '&apikey=PTAZie3wbuF6n5dx&jsoncallback=?';
     var venues = [];
 
     $.ajax({
@@ -34,6 +36,7 @@ $(function() {
         apikey: 'PTAZie3wbuF6n5dx'
       },
       dataType: "json"
+      // jsonCallback: "info"
     })
     .done(function(data) {
       var shows = data.resultsPage.results.event;
