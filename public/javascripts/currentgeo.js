@@ -20,23 +20,23 @@ $(function() {
     var lat = position.coords.latitude;
     var lon = position.coords.longitude;
     console.log(lat, lon);
-    var apiRoot = 'https://api.songkick.com/api/3.0/events.json';
-    // var api = 'https://api.songkick.com/api/3.0/events.json?location=geo:' + lat + ',' + lon + '&per_page=100&min_date=' + currentDate + '&max_date=' + currentDate + '&apikey=PTAZie3wbuF6n5dx&jsoncallback=?';
+    // var apiRoot = 'https://api.songkick.com/api/3.0/events.json';
+    var api = 'https://api.songkick.com/api/3.0/events.json?location=geo:' + lat + ',' + lon + '&per_page=100&min_date=' + currentDate + '&max_date=' + currentDate + '&apikey=PTAZie3wbuF6n5dx&jsoncallback=?';
     var venues = [];
 
     $.ajax({
-      url: apiRoot,
+      url: api,
       method: "GET",
       data: {
-        location: 'geo:' + lat + ',' + lon,
-        page: 1,
-        per_page: 100,
-        min_date: currentDate,
-        max_date: currentDate,
-        apikey: 'PTAZie3wbuF6n5dx'
+        // location: 'geo:' + lat + ',' + lon,
+        // page: 1,
+        // per_page: 100,
+        // min_date: currentDate,
+        // max_date: currentDate,
+        // apikey: 'PTAZie3wbuF6n5dx'
       },
-      dataType: "json"
-      // jsonCallback: "info"
+      dataType: "jsonp",
+      jsonCallback: "info"
     })
     .done(function(data) {
       var shows = data.resultsPage.results.event;
