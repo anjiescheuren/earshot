@@ -97,6 +97,10 @@ button {
   padding:0;
 }
 
+#artist:hover, #venue:hover, #artist:active, #venue:active, #artist:visited, #venue:visited {
+  text-decoration: none;
+}
+
 #venue {
   color: #06AED5;
 }
