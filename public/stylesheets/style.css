@@ -97,6 +97,10 @@ button {
   padding:0;
 }
 
+#venue {
+  color: #06AED5;
+}
+
 #mapholder {
   max-height: auto;
   max-width: 100%;

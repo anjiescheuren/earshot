@@ -49,6 +49,7 @@ $(function() {
           lng: shows[i].venue.lng,
           sk: shows[i].venue.metroArea.sk,
           songkick: shows[i].performance[0].artist.uri,
+          songkickVenue: shows[i].venue.uri,
           time: shows[i].start.time,
           date: moment(shows[i].start.date, "YYYY-MM-DD").format("dddd, MMMM Do"),
           datenow: moment().format("dddd, MMMM Do"),
@@ -92,9 +93,9 @@ $(function() {
       }
       var artist = venues[i].artist.replace(/\s/g, '');
       if (venues[i].time === null) {
-        infoWindowHandler(marker, '<a target="blank" id="artist" class="infowindow" href="https://' + artist + '.bandcamp.com"><div class="infowindow" id="artist">' + venues[i].artist + '</div></a>' + '<div class="infowindow">' + venues[i].name + '</div>' + '<div class="infowindow"> TBA </div');
+        infoWindowHandler(marker, '<a target="blank" id="artist" class="infowindow" href="https://' + artist + '.bandcamp.com"><div class="infowindow" id="artist">' + venues[i].artist + '</div></a>' + '<a class="infowindow" id="venue" target="blank" href="' + venues[i].songkickVenue + '><div class="infowindow">' + venues[i].name + '</div></a>' + '<div class="infowindow"> TBA </div');
       } else {
-      infoWindowHandler(marker, '<a target="blank" id="artist" class="infowindow" href="https://' + artist + '.bandcamp.com"><div class="infowindow" id="artist">' + venues[i].artist + '</div></a>' + '<div class="infowindow">' + venues[i].name + '</div>' + '<div class="infowindow">' + moment(venues[i].time, "hh:mm:ss").format("h:mm a") + '</div');
+      infoWindowHandler(marker, '<a target="blank" id="artist" class="infowindow" href="https://' + artist + '.bandcamp.com"><div class="infowindow" id="artist">' + venues[i].artist + '</div></a>' + '<a class="infowindow" id="venue" target="blank" href="' + venues[i].songkickVenue + '><div class="infowindow">' + venues[i].name + '</div></a>' + '<div class="infowindow">' + moment(venues[i].time, "hh:mm:ss").format("h:mm a") + '</div');
     }
   }
   }
