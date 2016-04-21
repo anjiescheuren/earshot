@@ -53,7 +53,7 @@ $(function() {
           time: shows[i].start.time,
           date: moment(shows[i].start.date, "YYYY-MM-DD").format("dddd, MMMM Do"),
           datenow: moment().format("dddd, MMMM Do"),
-          timenow: moment().format("HH:mm:ss")
+          timenow: moment().subtract(2, 'hours').format("HH:mm:ss")
         }
 
         // function to filter out shows with null values
@@ -103,7 +103,7 @@ $(function() {
   // function to display current date and time
   function dateTime() {
     daynow = moment().format('dddd, MMMM Do');
-    timenow = moment().format('h:mm a')
+    timenow = moment().subtract(2, 'hours').format('h:mm a');
     // document.getElementById('clock').innerHTML = now;
     $('#clock').html('Displaying shows for ' + daynow + ' after ' + timenow);
     setTimeout(function () {
