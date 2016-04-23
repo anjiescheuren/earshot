@@ -55,9 +55,8 @@ $(function() {
             time: shows[i].start.time,
             date: moment(shows[i].start.date, "YYYY-MM-DD").format("dddd, MMMM Do"),
             datenow: moment().format("dddd, MMMM Do"),
-            timenow: moment().subtract(2, 'hours').format("HH:mm:ss")
+            timenow: moment().format("hh:mm:ss")
           }
-        }
         // function to filter out shows with null values
         if (venue.name != "Unknown venue" &&
             venue.lat != null &&
@@ -69,6 +68,7 @@ $(function() {
           venues.push(venue);
         }
       }
+    }
       dropMarkers(map, venues);
     })
     // Done with AJAX request
@@ -77,6 +77,7 @@ $(function() {
   // function to place a marker on the map
   function dropMarkers(map, venues) {
     for (var i = 0; i < venues.length; i++) {
+      // if (venues[i].time > venues[i].timenow) {
       var latlng = new google.maps.LatLng(venues[i].lat, venues[i].lng);
       var marker = new google.maps.Marker({
         position: latlng,
@@ -98,14 +99,15 @@ $(function() {
         infoWindowHandler(marker, '<a target="blank" id="artist" class="infowindow" href="https://' + artist + '.bandcamp.com"><div class="infowindow" id="artist">' + venues[i].artist + '</div></a>' + '<a class="infowindow" id="venue" target="blank" href="' + venues[i].songkickVenue + '><div class="infowindow">' + venues[i].name + '</div></a>' + '<div class="infowindow"> TBA </div');
       } else {
       infoWindowHandler(marker, '<a target="blank" id="artist" class="infowindow" href="https://' + artist + '.bandcamp.com"><div class="infowindow" id="artist">' + venues[i].artist + '</div></a>' + '<a class="infowindow" id="venue" target="blank" href="' + venues[i].songkickVenue + '><div class="infowindow">' + venues[i].name + '</div></a>' + '<div class="infowindow">' + moment(venues[i].time, "hh:mm:ss").format("h:mm a") + '</div');
-    }
+      }
+    // }
   }
-  }
+}
 
   // function to display current date and time
   function dateTime() {
     daynow = moment().format('dddd, MMMM Do');
-    timenow = moment().subtract(2, 'hours').format('h:mm a');
+    timenow = moment().format('h:mm a');
     // document.getElementById('clock').innerHTML = now;
     $('#clock').html('Displaying shows for ' + daynow + ' after ' + timenow);
     setTimeout(function () {
