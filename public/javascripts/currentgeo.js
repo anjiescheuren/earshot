@@ -42,20 +42,22 @@ $(function() {
       var shows = data.resultsPage.results.event;
 
       for(var i = 0; i < shows.length; i++) {
-        var venue = {
-          artist: shows[i].performance[0].artist.displayName,
-          name: shows[i].venue.displayName,
-          lat: shows[i].venue.lat,
-          lng: shows[i].venue.lng,
-          sk: shows[i].venue.metroArea.sk,
-          songkick: shows[i].performance[0].artist.uri,
-          songkickVenue: shows[i].venue.uri,
-          time: shows[i].start.time,
-          date: moment(shows[i].start.date, "YYYY-MM-DD").format("dddd, MMMM Do"),
-          datenow: moment().format("dddd, MMMM Do"),
-          timenow: moment().subtract(2, 'hours').format("HH:mm:ss")
+        // FILTER OUT EMPTY PERFORMANCE ARRAYS!
+        if (shows[i].performance.length > 0) {
+          var venue = {
+            artist: shows[i].performance[0].artist.displayName,
+            name: shows[i].venue.displayName,
+            lat: shows[i].venue.lat,
+            lng: shows[i].venue.lng,
+            sk: shows[i].venue.metroArea.sk,
+            songkick: shows[i].performance[0].artist.uri,
+            songkickVenue: shows[i].venue.uri,
+            time: shows[i].start.time,
+            date: moment(shows[i].start.date, "YYYY-MM-DD").format("dddd, MMMM Do"),
+            datenow: moment().format("dddd, MMMM Do"),
+            timenow: moment().subtract(2, 'hours').format("HH:mm:ss")
+          }
         }
-
         // function to filter out shows with null values
         if (venue.name != "Unknown venue" &&
             venue.lat != null &&
