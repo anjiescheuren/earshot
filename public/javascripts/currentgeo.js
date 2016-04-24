@@ -40,12 +40,44 @@ $(function() {
     })
     .done(function(data) {
       var shows = data.resultsPage.results.event;
-
+      // events with multiple artists
       for(var i = 0; i < shows.length; i++) {
+        for (var j = 0; j < shows[i].performance.length; j++) {
+          if (shows[i].performance.length > 1) {
+            var venue = {
+              artist: shows[i].performance[j].artist.displayName,
+              // supporting: shows[i].performance[j].artist.displayName,
+              billingIndex: shows[i].performance[j].billingIndex,
+              name: shows[i].venue.displayName,
+              lat: shows[i].venue.lat,
+              lng: shows[i].venue.lng,
+              sk: shows[i].venue.metroArea.sk,
+              songkick: shows[i].performance[j].artist.uri,
+              songkickVenue: shows[i].venue.uri,
+              time: shows[i].start.time,
+              date: moment(shows[i].start.date, "YYYY-MM-DD").format("dddd, MMMM Do"),
+              datenow: moment().format("dddd, MMMM Do"),
+              timenow: moment().format("HH:mm:ss")
+            }
+          // function to filter out shows with null values
+          if (venue.name != "Unknown venue" &&
+              venue.lat != null &&
+              venue.time != "Invalid date" ||
+              venue.time === "TBA" &&
+              venue.time > venue.timenow &&
+              venue.billingIndex > 1
+            )
+            {
+              venues.push(venue);
+            }
+          }
+        }
         // FILTER OUT EMPTY PERFORMANCE ARRAYS!
+        // events with one artist
         if (shows[i].performance.length > 0) {
           var venue = {
             artist: shows[i].performance[0].artist.displayName,
+            billingIndex: shows[i].performance[0].billingIndex,
             name: shows[i].venue.displayName,
             lat: shows[i].venue.lat,
             lng: shows[i].venue.lng,
@@ -55,7 +87,7 @@ $(function() {
             time: shows[i].start.time,
             date: moment(shows[i].start.date, "YYYY-MM-DD").format("dddd, MMMM Do"),
             datenow: moment().format("dddd, MMMM Do"),
-            timenow: moment().format("hh:mm:ss")
+            timenow: moment().format("HH:mm:ss")
           }
         // function to filter out shows with null values
         if (venue.name != "Unknown venue" &&
@@ -67,6 +99,7 @@ $(function() {
         {
           venues.push(venue);
         }
+        console.log(venues[i].time, venues[i].timenow);
       }
     }
       dropMarkers(map, venues);
@@ -77,7 +110,8 @@ $(function() {
   // function to place a marker on the map
   function dropMarkers(map, venues) {
     for (var i = 0; i < venues.length; i++) {
-      // if (venues[i].time > venues[i].timenow) {
+      // console.log(venues[i].billing, venues[i].artist);
+      if (venues[i].time > venues[i].timenow || venues[i].time === null) {
       var latlng = new google.maps.LatLng(venues[i].lat, venues[i].lng);
       var marker = new google.maps.Marker({
         position: latlng,
@@ -100,7 +134,7 @@ $(function() {
       } else {
       infoWindowHandler(marker, '<a target="blank" id="artist" class="infowindow" href="https://' + artist + '.bandcamp.com"><div class="infowindow" id="artist">' + venues[i].artist + '</div></a>' + '<a class="infowindow" id="venue" target="blank" href="' + venues[i].songkickVenue + '><div class="infowindow">' + venues[i].name + '</div></a>' + '<div class="infowindow">' + moment(venues[i].time, "hh:mm:ss").format("h:mm a") + '</div');
       }
-    // }
+    }
   }
 }
 
