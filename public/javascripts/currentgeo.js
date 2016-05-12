@@ -22,6 +22,7 @@ $(function() {
     console.log(lat, lon);
     // var apiRoot = 'https://api.songkick.com/api/3.0/events.json';
     var api = 'https://api.songkick.com/api/3.0/events.json?location=geo:' + lat + ','+ lon + '&per_page=100&min_date=' + currentDate + '&max_date=' + currentDate + '&apikey=PTAZie3wbuF6n5dx&jsoncallback=?';
+    var api2 = 'http://api.bandsintown.com/events/search.json?format=json&api_version=2.0&app_id=earshot&' + currentDate + '&location=use_geoip';
     var venues = [];
 
     $.ajax({
@@ -92,6 +93,7 @@ $(function() {
         // function to filter out shows with null values
         if (venue.name != "Unknown venue" &&
             venue.lat != null &&
+            venue.lng != null &&
             venue.time != "Invalid date" ||
             venue.time === "TBA" &&
             venue.time > venue.timenow
@@ -102,6 +104,32 @@ $(function() {
       }
     }
       dropMarkers(map, venues);
+    })
+
+    $.ajax({
+      url: api2,
+      method: "GET",
+      dataType: "jsonp",
+      jsonCallback: "info"
+    })
+    .done(function(data) {
+      var bitshows = data;
+      //for events with one artist
+      for (var i = 0; i < bitshows.length; i++) {
+        console.log(bitshows[i].artists[0].name);
+        var bitvenue = {
+          artist: bitshows[i].artists[0].name,
+          artistbit: bitshows[i].artists[0].url,
+          name: bitshows[i].venue.name,
+          nameurl: bitshows[i].venue.url,
+          lat: bitshows[i].venue.latitude,
+          lng: bitshows[i].venue.longitude,
+          time: moment(bitshows[i].dateTime).format("HH:mm:ss"),
+          date: moment(bitshows[i].dateTime).format("dddd"),
+          datenow: moment().format("dddd, MMMM Do"),
+          timenow: moment().subtract(.5, 'hours').format("HH:mm:ss")
+        }
+      }
     })
     // Done with AJAX request
   }
