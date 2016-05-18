@@ -13,17 +13,55 @@ $(function() {
   // Function Definition //
   /////////////////////////
 
-  function getVenues(map, position) {
+  var bitvenues = [];
+  var venues = [];
 
+  function getVenues(map, position) {
     //Use moment.js to update api call based on current date
     var currentDate = moment().format("YYYY-MM-DD");
     var lat = position.coords.latitude;
     var lon = position.coords.longitude;
-    console.log(lat, lon);
     // var apiRoot = 'https://api.songkick.com/api/3.0/events.json';
     var api = 'https://api.songkick.com/api/3.0/events.json?location=geo:' + lat + ','+ lon + '&per_page=100&min_date=' + currentDate + '&max_date=' + currentDate + '&apikey=PTAZie3wbuF6n5dx&jsoncallback=?';
-    var api2 = 'http://api.bandsintown.com/events/search.json?format=json&api_version=2.0&app_id=earshot&' + currentDate + '&location=use_geoip';
-    var venues = [];
+    var api2 = 'https://api.bandsintown.com/events/search.json?format=json&api_version=2.0&app_id=earshot&' + currentDate + '&location=use_geoip';
+
+    $.ajax({
+      url: api2,
+      method: "GET",
+      dataType: "jsonp",
+      jsonCallback: "info"
+    })
+    .done(function(data) {
+      var bitshows = data;
+      //for events with one artist
+      for (var i = 0; i < bitshows.length; i++) {
+        var bitvenue = {
+          artist: bitshows[i].artists[0].name,
+          artistbit: bitshows[i].artists[0].url,
+          name: bitshows[i].venue.name,
+          nameurl: bitshows[i].venue.url,
+          lat: bitshows[i].venue.latitude,
+          lng: bitshows[i].venue.longitude,
+          time: moment(bitshows[i].datetime).format("HH:mm:ss"),
+          date: moment(bitshows[i].datetime).format("dddd, MMMM Do"),
+          datenow: moment().format("dddd, MMMM Do"),
+          timenow: moment().subtract(.5, 'hours').format("HH:mm:ss")
+        }
+        //function to filter out shows with null values
+        if (bitvenue.name != "Unknown venue" &&
+            bitvenue.lat != null &&
+            bitvenue.lng != null &&
+            bitvenue.time != "Invalid date" ||
+            bitvenue.time === "TBA" &&
+            bitvenue.time > bitvenue.timenow
+          )
+        {
+          bitvenues.push(bitvenue);
+        }
+      }
+      dropBitMarkers(map, bitvenues);
+    })
+    // Done with api2 AJAX request
 
     $.ajax({
       url: api,
@@ -43,36 +81,43 @@ $(function() {
       var shows = data.resultsPage.results.event;
       // events with multiple artists
       for(var i = 0; i < shows.length; i++) {
-        for (var j = 0; j < shows[i].performance.length; j++) {
-          if (shows[i].performance.length > 1) {
-            var venue = {
-              artist: shows[i].performance[j].artist.displayName,
-              // supporting: shows[i].performance[j].artist.displayName,
-              billingIndex: shows[i].performance[j].billingIndex,
-              name: shows[i].venue.displayName,
-              lat: shows[i].venue.lat,
-              lng: shows[i].venue.lng,
-              sk: shows[i].venue.metroArea.sk,
-              songkick: shows[i].performance[j].artist.uri,
-              songkickVenue: shows[i].venue.uri,
-              time: shows[i].start.time,
-              date: moment(shows[i].start.date, "YYYY-MM-DD").format("dddd, MMMM Do"),
-              datenow: moment().format("dddd, MMMM Do"),
-              timenow: moment().format("HH:mm:ss")
-            }
+        // for (var j = 0; j < shows[i].performance.length; j++) {
+          // if (shows[i].performance.length >= 2) {
+            // var venue = {
+            //   artist: shows[i].performance[j].artist.displayName,
+            //   // supporting: shows[i].performance[j].artist.displayName,
+            //   billingIndex: shows[i].performance[j].billingIndex,
+            //   name: shows[i].venue.displayName,
+            //   lat: shows[i].venue.lat,
+            //   lng: shows[i].venue.lng,
+            //   sk: shows[i].venue.metroArea.sk,
+            //   songkick: shows[i].performance[j].artist.uri,
+            //   songkickVenue: shows[i].venue.uri,
+            //   time: shows[i].start.time,
+            //   date: moment(shows[i].start.date, "YYYY-MM-DD").format("dddd, MMMM Do"),
+            //   datenow: moment().format("dddd, MMMM Do"),
+            //   timenow: moment().format("HH:mm:ss")
+            // }
           // function to filter out shows with null values
-          if (venue.name != "Unknown venue" &&
-              venue.lat != null &&
-              venue.time != "Invalid date" ||
-              venue.time === "TBA" &&
-              venue.time > venue.timenow &&
-              venue.billingIndex > 1
-            )
-            {
-              venues.push(venue);
+          // if (venue.name != "Unknown venue" &&
+          //     venue.lat != null &&
+          //     venue.time != "Invalid date" ||
+          //     venue.time === "TBA" &&
+          //     venue.time > venue.timenow &&
+          //     venue.billingIndex > 1
+          //   )
+          //   {
+          //     venues.push(venue);
+          //   }
+          // }
+          for(k = 0; k < bitvenues.length; k++) {
+            for(m = 0; m < venues.length; m++) {
+              if(bitvenues[k].artist === venues[m].artist) {
+                venues.splice(m);
+              }
             }
           }
-        }
+        // }
         // FILTER OUT EMPTY PERFORMANCE ARRAYS!
         // events with one artist
         if (shows[i].performance.length > 0) {
@@ -82,7 +127,6 @@ $(function() {
             name: shows[i].venue.displayName,
             lat: shows[i].venue.lat,
             lng: shows[i].venue.lng,
-            sk: shows[i].venue.metroArea.sk,
             songkick: shows[i].performance[0].artist.uri,
             songkickVenue: shows[i].venue.uri,
             time: shows[i].start.time,
@@ -105,41 +149,51 @@ $(function() {
     }
       dropMarkers(map, venues);
     })
-
-    $.ajax({
-      url: api2,
-      method: "GET",
-      dataType: "jsonp",
-      jsonCallback: "info"
-    })
-    .done(function(data) {
-      var bitshows = data;
-      //for events with one artist
-      for (var i = 0; i < bitshows.length; i++) {
-        console.log(bitshows[i].artists[0].name);
-        var bitvenue = {
-          artist: bitshows[i].artists[0].name,
-          artistbit: bitshows[i].artists[0].url,
-          name: bitshows[i].venue.name,
-          nameurl: bitshows[i].venue.url,
-          lat: bitshows[i].venue.latitude,
-          lng: bitshows[i].venue.longitude,
-          time: moment(bitshows[i].dateTime).format("HH:mm:ss"),
-          date: moment(bitshows[i].dateTime).format("dddd"),
-          datenow: moment().format("dddd, MMMM Do"),
-          timenow: moment().subtract(.5, 'hours').format("HH:mm:ss")
-        }
-      }
-    })
-    // Done with AJAX request
+    //Done with api1 AJAX request
   }
-
-  // function to place a marker on the map
+  // function to place a marker on the map for venues array
   function dropMarkers(map, venues) {
     for (var i = 0; i < venues.length; i++) {
-      // console.log(venues[i].billing, venues[i].artist);
+      console.log(venues[i].artist, venues[i].name);
       if (venues[i].time > venues[i].timenow || venues[i].time === null) {
       var latlng = new google.maps.LatLng(venues[i].lat, venues[i].lng);
+      var marker = new google.maps.Marker({
+        position: latlng,
+        icon: 'images/microphone.png',
+        map: map
+      });
+
+      function infoWindowHandler(marker, content) {
+        var infowindow = new google.maps.InfoWindow(
+          {
+            content: content
+          });
+
+        google.maps.event.addListener(marker, 'click', function(){
+          if(infowindow) {
+            infowindow.close();
+          }
+          infowindow.setContent(content);
+          infowindow.open(map, marker);
+        });
+      }
+
+      var artist = venues[i].artist.replace(/\s/g, '');
+      if (venues[i].time === null) {
+        infoWindowHandler(marker, '<a target="blank" id="artist" class="infowindow" href="https://' + artist + '.bandcamp.com"><div class="infowindow" id="artist">' + venues[i].artist + '</div></a>' + '<a class="infowindow" id="venue" target="blank" href="' + venues[i].songkickVenue + '><div class="infowindow">' + venues[i].name + '</div></a>' + '<div class="infowindow"> TBA </div');
+      } else {
+      infoWindowHandler(marker, '<a target="blank" id="artist" class="infowindow" href="https://' + artist + '.bandcamp.com"><div class="infowindow" id="artist">' + venues[i].artist + '</div></a>' + '<a class="infowindow" id="venue" target="blank" href="' + venues[i].songkickVenue + '><div class="infowindow">' + venues[i].name + '</div></a>' + '<div class="infowindow">' + moment(venues[i].time, "hh:mm:ss").format("h:mm a") + '</div');
+      }
+    }
+  }
+}
+
+  // function to place a marker on the map for bitvenues array
+  function dropBitMarkers(map, bitvenues) {
+    for (var i = 0; i < bitvenues.length; i++) {
+      console.log(bitvenues[i].artist, bitvenues[i].name);
+      if (bitvenues[i].time > bitvenues[i].timenow || bitvenues[i].time === null) {
+      var latlng = new google.maps.LatLng(bitvenues[i].lat, bitvenues[i].lng);
       var marker = new google.maps.Marker({
         position: latlng,
         icon: 'images/microphone.png',
@@ -155,11 +209,11 @@ $(function() {
           infowindow.open(map, marker);
         });
       }
-      var artist = venues[i].artist.replace(/\s/g, '');
-      if (venues[i].time === null) {
-        infoWindowHandler(marker, '<a target="blank" id="artist" class="infowindow" href="https://' + artist + '.bandcamp.com"><div class="infowindow" id="artist">' + venues[i].artist + '</div></a>' + '<a class="infowindow" id="venue" target="blank" href="' + venues[i].songkickVenue + '><div class="infowindow">' + venues[i].name + '</div></a>' + '<div class="infowindow"> TBA </div');
+      var artist = bitvenues[i].artist.replace(/\s/g, '');
+      if (bitvenues[i].time === null) {
+        infoWindowHandler(marker, '<a target="blank" id="artist" class="infowindow" href="https://' + artist + '.bandcamp.com"><div class="infowindow" id="artist">' + bitvenues[i].artist + '</div></a><a class="infowindow" id="venue" target="blank" href="' + bitvenues[i].nameurl + '><div class="infowindow">' + bitvenues[i].name + '</div></a>' + '<div class="infowindow"> TBA </div');
       } else {
-      infoWindowHandler(marker, '<a target="blank" id="artist" class="infowindow" href="https://' + artist + '.bandcamp.com"><div class="infowindow" id="artist">' + venues[i].artist + '</div></a>' + '<a class="infowindow" id="venue" target="blank" href="' + venues[i].songkickVenue + '><div class="infowindow">' + venues[i].name + '</div></a>' + '<div class="infowindow">' + moment(venues[i].time, "hh:mm:ss").format("h:mm a") + '</div');
+      infoWindowHandler(marker, '<a target="blank" id="artist" class="infowindow" href="https://' + artist + '.bandcamp.com"><div class="infowindow" id="artist">' + bitvenues[i].artist + '</div></a><a class="infowindow" id="venue" target="blank" href="' + bitvenues[i].nameurl + '><div class="infowindow">' + bitvenues[i].name + '</div></a>' + '<div class="infowindow">' + moment(bitvenues[i].time, "hh:mm:ss").format("h:mm a") + '</div');
       }
     }
   }
