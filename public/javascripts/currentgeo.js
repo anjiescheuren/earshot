@@ -110,6 +110,13 @@ $(function() {
           //     venues.push(venue);
           //   }
           // }
+          for(k = 0; k < bitvenues.length; k++) {
+            for(m = 0; m < venues.length; m++) {
+              if(bitvenues[k].artist === venues[m].artist) {
+                venues.splice(m);
+              }
+            }
+          }
         // }
         // FILTER OUT EMPTY PERFORMANCE ARRAYS!
         // events with one artist
@@ -140,13 +147,6 @@ $(function() {
         }
       }
     }
-     for(k = 0; k < bitvenues.length; k++) {
-            for(m = 0; m < venues.length; m++) {
-              if(bitvenues[k].artist === venues[m].artist) {
-                venues.splice(m);
-              }
-            }
-          }
       dropMarkers(map, venues);
     })
     //Done with api1 AJAX request
