@@ -55,6 +55,17 @@ button {
   padding: 0;
 }
 
+#artist {
+  color: #06AED5;
+  font-size: 16px;
+  font-weight: bold;
+  padding:0;
+}
+
+#venue {
+  color: #06AED5;
+}
+
 @media (min-width: 375px) and (orientation: landscape) {
   h1 {
     font-size: 12em;
@@ -79,6 +90,20 @@ button {
   font-size: 1.25em;
   margin-top: .35em;
   }
+
+  #artist {
+  color: #06AED5;
+  font-size: 16px;
+  font-weight: bold;
+  padding:0;
+  text-decoration: none;
+}
+
+  #venue {
+  color: #06AED5;
+  text-decoration: none;
+  }
+
 }
 
 .infowindow {
@@ -88,24 +113,10 @@ button {
   text-align: center;
   margin: 0 auto;
   max-width: 300px;
-  text-decoration: none;
-}
-
-#artist {
-  color: #06AED5;
-  font-size: 16px;
-  font-weight: bold;
-  padding:0;
-  text-decoration: none;
 }
 
 #artist:hover, #venue:hover, #artist:active, #venue:active, #artist:visited, #venue:visited {
   text-decoration-style: none;
-}
-
-#venue {
-  color: #06AED5;
-  text-decoration: none;
 }
 
 #mapholder {
