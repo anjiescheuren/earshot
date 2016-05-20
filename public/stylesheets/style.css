@@ -88,6 +88,7 @@ button {
   text-align: center;
   margin: 0 auto;
   max-width: 300px;
+  text-decoration: none;
 }
 
 #artist {
@@ -95,14 +96,16 @@ button {
   font-size: 16px;
   font-weight: bold;
   padding:0;
+  text-decoration: none;
 }
 
 #artist:hover, #venue:hover, #artist:active, #venue:active, #artist:visited, #venue:visited {
-  text-decoration: none;
+  text-decoration-style: none;
 }
 
 #venue {
   color: #06AED5;
+  text-decoration: none;
 }
 
 #mapholder {
