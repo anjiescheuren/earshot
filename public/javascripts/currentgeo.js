@@ -45,7 +45,7 @@ $(function() {
           time: moment(bitshows[i].datetime).format("HH:mm:ss"),
           date: moment(bitshows[i].datetime).format("dddd, MMMM Do"),
           datenow: moment().format("dddd, MMMM Do"),
-          timenow: moment().subtract(.5, 'hours').format("HH:mm:ss")
+          timenow: moment().subtract(2, 'hours').format("HH:mm:ss")
         }
         //function to filter out shows with null values
         if (bitvenue.name != "Unknown venue" &&
@@ -126,7 +126,7 @@ $(function() {
             time: shows[i].start.time,
             date: moment(shows[i].start.date, "YYYY-MM-DD").format("dddd, MMMM Do"),
             datenow: moment().format("dddd, MMMM Do"),
-            timenow: moment().subtract(.5, 'hours').format("HH:mm:ss")
+            timenow: moment().subtract(2, 'hours').format("HH:mm:ss")
           }
         // function to filter out shows with null values
         if (venue.name != "Unknown venue" &&
@@ -226,7 +226,7 @@ $(function() {
   // function to display current date and time
   function dateTime() {
     daynow = moment().format('dddd, MMMM Do');
-    timenow = moment().subtract(.5, 'hours').format('h:mm a');
+    timenow = moment().subtract(2, 'hours').format('h:mm a');
     // document.getElementById('clock').innerHTML = now;
     $('#clock').html('Displaying shows for ' + daynow + ' after ' + timenow);
     setTimeout(function () {
