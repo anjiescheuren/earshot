@@ -15,6 +15,7 @@ $(function() {
 
   var bitvenues = [];
   var venues = [];
+  var prev_window = false;
 
   function getVenues(map, position) {
     //Use moment.js to update api call based on current date
@@ -166,7 +167,6 @@ $(function() {
         icon: 'images/microphone.png',
         map: map
       });
-      var prev_window = false;
       function infoWindowHandler(marker, content) {
         var infowindow = new google.maps.InfoWindow(
           {
@@ -204,7 +204,6 @@ $(function() {
         icon: 'images/microphone.png',
         map: map
       });
-       var prev_window = false;
       function infoWindowHandler(marker, content) {
         var infowindow = new google.maps.InfoWindow(
           {
@@ -219,7 +218,6 @@ $(function() {
           infowindow.setContent(content);
           infowindow.open(map, marker);
         });
-
       }
       var artist = bitvenues[i].artist;
       if (bitvenues[i].time === null) {
