@@ -110,13 +110,7 @@ $(function() {
           //     venues.push(venue);
           //   }
           // }
-          for(k = 0; k < bitvenues.length; k++) {
-            for(m = 0; m < venues.length; m++) {
-              if(bitvenues[k].artist === venues[m].artist) {
-                venues.splice(m);
-              }
-            }
-          }
+
         // }
         // FILTER OUT EMPTY PERFORMANCE ARRAYS!
         // events with one artist
@@ -144,6 +138,15 @@ $(function() {
           )
         {
           venues.push(venue);
+
+          for(k = 0; k < bitvenues.length; k++) {
+            for(m = 0; m < venues.length; m++) {
+              if(venues[m].artist === bitvenues[k].artist) {
+                // console.log(venues[m].artist, bitvenues[k].artist);
+                venues.splice(m);
+              }
+            }
+          }
         }
       }
     }
@@ -153,8 +156,9 @@ $(function() {
   }
   // function to place a marker on the map for venues array
   function dropMarkers(map, venues) {
+    // console.log(venues.length);
     for (var i = 0; i < venues.length; i++) {
-      console.log(venues[i].artist, venues[i].name);
+      // console.log(venues[i].artist, venues[i].name);
       if (venues[i].time > venues[i].timenow || venues[i].time === null) {
       var latlng = new google.maps.LatLng(venues[i].lat, venues[i].lng);
       var marker = new google.maps.Marker({
