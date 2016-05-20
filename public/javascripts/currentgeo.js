@@ -166,7 +166,7 @@ $(function() {
         icon: 'images/microphone.png',
         map: map
       });
-
+      var prev_window = false;
       function infoWindowHandler(marker, content) {
         var infowindow = new google.maps.InfoWindow(
           {
@@ -174,9 +174,10 @@ $(function() {
           });
 
         google.maps.event.addListener(marker, 'click', function(){
-          if(infowindow) {
-            infowindow.close();
+          if(prev_window) {
+            prev_window.close();
           }
+          prev_window = infowindow;
           infowindow.setContent(content);
           infowindow.open(map, marker);
         });
@@ -186,7 +187,7 @@ $(function() {
       if (venues[i].time === null) {
         infoWindowHandler(marker, '<a target="_blank" id="artist" class="infowindow" href="https://www.google.com/#safe=active&q=' + artist + ' band"><div class="infowindow" id="artist">' + venues[i].artist + '</div></a>' + '<a id="venue" target="_blank" href="https://www.google.com/search?q=' + venues[i].name + 'austin"><div class="infowindow" id="venue">' + venues[i].name + '</div></a>' + '<div class="infowindow"> TBA </div');
       } else {
-      infoWindowHandler(marker, '<a target="_blank" id="artist" class="infowindow" href="https://www.google.com/#safe=active&q=' + artist + 'band"><div class="infowindow" id="artist">' + venues[i].artist + '</div></a>' + '<a id="venue" target="_blank" href="https://www.google.com/search?q=' + venues[i].name + ' austin"><div class="infowindow" id="venue">' + venues[i].name + '</div></a>' + '<div class="infowindow">' + moment(venues[i].time, "hh:mm:ss").format("h:mm a") + '</div');
+      infoWindowHandler(marker, '<a target="_blank" id="artist" class="infowindow" href="https://www.google.com/#safe=active&q=' + artist + ' band"><div class="infowindow" id="artist">' + venues[i].artist + '</div></a>' + '<a id="venue" target="_blank" href="https://www.google.com/search?q=' + venues[i].name + ' austin"><div class="infowindow" id="venue">' + venues[i].name + '</div></a>' + '<div class="infowindow">' + moment(venues[i].time, "hh:mm:ss").format("h:mm a") + '</div');
       }
     }
   }
@@ -203,15 +204,22 @@ $(function() {
         icon: 'images/microphone.png',
         map: map
       });
-
+       var prev_window = false;
       function infoWindowHandler(marker, content) {
-        google.maps.event.addListener(marker, 'click', function(){
-          var infowindow = new google.maps.InfoWindow({
+        var infowindow = new google.maps.InfoWindow(
+          {
             content: content
           });
-          infowindow.close();
+
+        google.maps.event.addListener(marker, 'click', function(){
+          if(prev_window) {
+            prev_window.close();
+          }
+          prev_window = infowindow;
+          infowindow.setContent(content);
           infowindow.open(map, marker);
         });
+
       }
       var artist = bitvenues[i].artist;
       if (bitvenues[i].time === null) {
