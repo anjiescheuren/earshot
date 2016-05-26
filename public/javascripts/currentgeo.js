@@ -58,6 +58,15 @@ $(function() {
           )
         {
           bitvenues.push(bitvenue);
+
+          for(k = 0; k < bitvenues.length; k++) {
+            for(m = 0; m < venues.length; m++) {
+              if(venues[m].artist === bitvenues[k].artist) {
+                // console.log(venues[m].artist, bitvenues[k].artist);
+                venues.splice(m);
+              }
+            }
+          }
         }
       }
       dropBitMarkers(map, bitvenues);
@@ -140,34 +149,24 @@ $(function() {
         {
           venues.push(venue);
 
-          // for(k = 0; k < bitvenues.length; k++) {
-          //   for(m = 0; m < venues.length; m++) {
-          //     if(venues[m].artist === bitvenues[k].artist) {
-          //       // console.log(venues[m].artist, bitvenues[k].artist);
-          //       venues.splice(m);
-          //     }
-          //   }
-          // }
+          for(k = 0; k < bitvenues.length; k++) {
+            for(m = 0; m < venues.length; m++) {
+              if(venues[m].artist === bitvenues[k].artist) {
+                // console.log(venues[m].artist, bitvenues[k].artist);
+                venues.splice(m);
+              }
+            }
+          }
         }
       }
     }
-    // console.log(venues);
+    console.log(venues.length);
       dropMarkers(map, venues);
     })
     //Done with api1 AJAX request
   }
   // function to place a marker on the map for venues array
   function dropMarkers(map, venues) {
-    for(k = 0; k < bitvenues.length; k++) {
-      for(m = 0; m < venues.length; m++) {
-        if(venues[m].artist === bitvenues[k].artist) {
-          // console.log(venues[m].artist, bitvenues[k].artist);
-          venues.splice(m);
-        }
-      }
-      console.log(venues);
-    }
-    // console.log(venues.length);
     for (var i = 0; i < venues.length; i++) {
       // console.log(venues[i].artist, venues[i].name);
       if (venues[i].time > venues[i].timenow || venues[i].time === null) {
