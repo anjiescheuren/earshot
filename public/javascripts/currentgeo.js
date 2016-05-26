@@ -151,7 +151,6 @@ $(function() {
         }
       }
     }
-    console.log(venues);
       dropMarkers(map, venues);
     })
     //Done with api1 AJAX request
