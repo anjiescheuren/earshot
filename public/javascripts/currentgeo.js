@@ -140,18 +140,18 @@ $(function() {
         {
           venues.push(venue);
 
-          for(k = 0; k < bitvenues.length; k++) {
-            for(m = 0; m < venues.length; m++) {
-              if(venues[m].artist === bitvenues[k].artist) {
-                // console.log(venues[m].artist, bitvenues[k].artist);
-                venues.splice(m);
-              }
-            }
-          }
+          // for(k = 0; k < bitvenues.length; k++) {
+          //   for(m = 0; m < venues.length; m++) {
+          //     if(venues[m].artist === bitvenues[k].artist) {
+          //       // console.log(venues[m].artist, bitvenues[k].artist);
+          //       venues.splice(m);
+          //     }
+          //   }
+          // }
         }
       }
     }
-    console.log(venues);
+    // console.log(venues);
       dropMarkers(map, venues);
     })
     //Done with api1 AJAX request
