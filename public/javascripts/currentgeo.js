@@ -194,7 +194,7 @@ $(function() {
 
       var artist = venues[i].artist;
       if (venues[i].time === null) {
-        infoWindowHandler(marker, '<a target="_blank" id="artist" class="infowindow" href="https://www.google.com/#safe=active&q=' + artist + ' band"><div class="infowindow" id="artist">' + venues[i].artist + '</div></a>' + '<a id="venue" target="_blank" href="https://www.google.com/search?q=' + venues[i].name + 'venue"><div class="infowindow" id="venue">' + venues[i].name + '</div></a>' + '<div class="infowindow"> TBA </div');
+        infoWindowHandler(marker, '<a target="_blank" id="artist" class="infowindow" href="https://www.google.com/#safe=active&q=' + artist + ' band"><div class="infowindow" id="artist">' + venues[i].artist + '</div></a>' + '<a id="venue" target="_blank" href="https://www.google.com/search?q=' + venues[i].name + ' venue"><div class="infowindow" id="venue">' + venues[i].name + '</div></a>' + '<div class="infowindow"> TBA </div');
       } else {
       infoWindowHandler(marker, '<a target="_blank" id="artist" class="infowindow" href="https://www.google.com/#safe=active&q=' + artist + ' band"><div class="infowindow" id="artist">' + venues[i].artist + '</div></a>' + '<a id="venue" target="_blank" href="https://www.google.com/search?q=' + venues[i].name + ' venue"><div class="infowindow" id="venue">' + venues[i].name + '</div></a>' + '<div class="infowindow">' + moment(venues[i].time, "hh:mm:ss").format("h:mm a") + '</div');
       }
