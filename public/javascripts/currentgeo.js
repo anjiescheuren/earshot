@@ -24,7 +24,7 @@ $(function() {
     var lon = position.coords.longitude;
     // var apiRoot = 'https://api.songkick.com/api/3.0/events.json';
     var api = 'https://api.songkick.com/api/3.0/events.json?location=geo:' + lat + ','+ lon + '&per_page=100&min_date=' + currentDate + '&max_date=' + currentDate + '&apikey=PTAZie3wbuF6n5dx&jsoncallback=?';
-    var api2 = 'https://api.bandsintown.com/events/search.json?format=json&api_version=2.0&app_id=earshot&' + currentDate + '&location=use_geoip';
+    var api2 = 'https://api.bandsintown.com/events/search.json?format=json&api_version=2.0&app_id=earshot&date=' + currentDate + '&location=use_geoip';
 
     $.ajax({
       url: api2,
@@ -194,9 +194,9 @@ $(function() {
 
       var artist = venues[i].artist;
       if (venues[i].time === null) {
-        infoWindowHandler(marker, '<a target="_blank" id="artist" class="infowindow" href="https://www.google.com/#safe=active&q=' + artist + ' band"><div class="infowindow" id="artist">' + venues[i].artist + '</div></a>' + '<a id="venue" target="_blank" href="https://www.google.com/search?q=' + venues[i].name + 'austin"><div class="infowindow" id="venue">' + venues[i].name + '</div></a>' + '<div class="infowindow"> TBA </div');
+        infoWindowHandler(marker, '<a target="_blank" id="artist" class="infowindow" href="https://www.google.com/#safe=active&q=' + artist + ' band"><div class="infowindow" id="artist">' + venues[i].artist + '</div></a>' + '<a id="venue" target="_blank" href="https://www.google.com/search?q=' + venues[i].name + 'venue"><div class="infowindow" id="venue">' + venues[i].name + '</div></a>' + '<div class="infowindow"> TBA </div');
       } else {
-      infoWindowHandler(marker, '<a target="_blank" id="artist" class="infowindow" href="https://www.google.com/#safe=active&q=' + artist + ' band"><div class="infowindow" id="artist">' + venues[i].artist + '</div></a>' + '<a id="venue" target="_blank" href="https://www.google.com/search?q=' + venues[i].name + ' austin"><div class="infowindow" id="venue">' + venues[i].name + '</div></a>' + '<div class="infowindow">' + moment(venues[i].time, "hh:mm:ss").format("h:mm a") + '</div');
+      infoWindowHandler(marker, '<a target="_blank" id="artist" class="infowindow" href="https://www.google.com/#safe=active&q=' + artist + ' band"><div class="infowindow" id="artist">' + venues[i].artist + '</div></a>' + '<a id="venue" target="_blank" href="https://www.google.com/search?q=' + venues[i].name + ' venue"><div class="infowindow" id="venue">' + venues[i].name + '</div></a>' + '<div class="infowindow">' + moment(venues[i].time, "hh:mm:ss").format("h:mm a") + '</div');
       }
     }
   }
@@ -230,9 +230,9 @@ $(function() {
       }
       var artist = bitvenues[i].artist;
       if (bitvenues[i].time === null) {
-        infoWindowHandler(marker, '<a target="_blank" id="artist" class="infowindow" href="https://google.com/#safe=active&q=' + artist + ' band"><div class="infowindow" id="artist">' + bitvenues[i].artist + '</div></a><a id="venue" target="_blank" href="https://www.google.com/search?q=' + bitvenues[i].name + ' austin"><div class="infowindow" id="venue">' + bitvenues[i].name + '</div></a>' + '<div class="infowindow"> TBA </div');
+        infoWindowHandler(marker, '<a target="_blank" id="artist" class="infowindow" href="https://google.com/#safe=active&q=' + artist + ' band"><div class="infowindow" id="artist">' + bitvenues[i].artist + '</div></a><a id="venue" target="_blank" href="https://www.google.com/search?q=' + bitvenues[i].name + ' venue"><div class="infowindow" id="venue">' + bitvenues[i].name + '</div></a>' + '<div class="infowindow"> TBA </div');
       } else {
-      infoWindowHandler(marker, '<a target="_blank" id="artist" class="infowindow" href="https://google.com/#safe=active&q=' + artist + ' band"><div class="infowindow" id="artist">' + bitvenues[i].artist + '</div></a><a id="venue" target="_blank" href="https://www.google.com/search?q=' + bitvenues[i].name + ' austin"><div class="infowindow" id="venue">' + bitvenues[i].name + '</div></a>' + '<div class="infowindow">' + moment(bitvenues[i].time, "hh:mm:ss").format("h:mm a") + '</div');
+      infoWindowHandler(marker, '<a target="_blank" id="artist" class="infowindow" href="https://google.com/#safe=active&q=' + artist + ' band"><div class="infowindow" id="artist">' + bitvenues[i].artist + '</div></a><a id="venue" target="_blank" href="https://www.google.com/search?q=' + bitvenues[i].name + ' venue"><div class="infowindow" id="venue">' + bitvenues[i].name + '</div></a>' + '<div class="infowindow">' + moment(bitvenues[i].time, "hh:mm:ss").format("h:mm a") + '</div');
       }
     }
   }
