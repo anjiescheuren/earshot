@@ -243,7 +243,7 @@ $(function() {
     daynow = moment().format('dddd, MMMM Do');
     timenow = moment().subtract(2, 'hours').format('h:mm a');
     // document.getElementById('clock').innerHTML = now;
-    $('#clock').html('Displaying shows for ' + daynow + ' after ' + timenow + ' CST');
+    $('#clock').html('Displaying shows for ' + daynow + ' after ' + timenow + ' local time');
     setTimeout(function () {
       dateTime();
     }, 30000);
