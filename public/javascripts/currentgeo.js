@@ -24,7 +24,7 @@ $(function() {
     var lon = position.coords.longitude;
     // var apiRoot = 'https://api.songkick.com/api/3.0/events.json';
     var api = 'https://api.songkick.com/api/3.0/events.json?location=geo:' + lat + ','+ lon + '&per_page=100&min_date=' + currentDate + '&max_date=' + currentDate + '&apikey=PTAZie3wbuF6n5dx&jsoncallback=?';
-    var api2 = 'https://api.bandsintown.com/events/search.json?format=json&api_version=2.0&app_id=earshot&date=' + currentDate + '&location=use_geoip';
+    var api2 = 'https://api.bandsintown.com/events/search.json?format=json&api_version=2.0&app_id=earshot&date=' + currentDate + '&location='+ lat + ','+ lon;
 
     $.ajax({
       url: api2,
